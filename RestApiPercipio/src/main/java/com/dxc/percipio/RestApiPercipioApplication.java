@@ -2,17 +2,18 @@ package com.dxc.percipio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class RestApiPercipioApplication {
+	
+	private static final Logger log = LoggerFactory.getLogger(RestApiPercipioApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(RestApiPercipioApplication.class, args);
-		Logger log = LoggerFactory.getLogger(RestApiPercipioApplication.class);
-		log.info("Hello world!");
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String quote = restTemplate.getForObject("http://localhost:8070", String.class);
+		log.info(quote);
+		
 	}
-
+	
 }
